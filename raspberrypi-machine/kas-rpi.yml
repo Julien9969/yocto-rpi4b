@@ -1,0 +1,46 @@
+# Every file needs to contain a header, that provides kas with information
+# about the context of this file.
+header:
+  # The `version` entry in the header describes for which configuration
+  # format version this file was created for. It is used by kas to figure
+  # out if it is compatible with this file. The version is an integer that
+  # is increased on every format change.
+  version: 19
+# The machine as it is written into the `local.conf` of bitbake.
+machine: raspberrypi4-64
+# The distro name as it is written into the `local.conf` of bitbake.
+distro: poky
+repos:
+  # This entry includes the repository where the config file is located
+  # to the bblayers.conf:
+  # meta-custom:
+  # Here we include a list of layers from the poky repository to the
+  # bblayers.conf:
+  poky:
+    url: "https://git.yoctoproject.org/git/poky"
+    branch: kirkstone # scarthgap
+    # commit: b8f8125f05e8ece078ba6bf01eebb2900cf2f9bf # it's a scarthgap commit
+    layers:
+      meta:
+      meta-poky:
+      meta-yocto-bsp:
+
+  meta-raspberrypi:
+    url: "https://git.yoctoproject.org/git/meta-raspberrypi"
+    branch: kirkstone
+    layers:
+      .:
+
+local_conf_header:
+  sstate: |
+    BB_HASHSERVE_UPSTREAM = "wss://hashserv.yoctoproject.org/ws"
+    SSTATE_MIRRORS ?= "file://.* http://sstate.yoctoproject.org/all/PATH;downloadfilename=PATH"
+    BB_HASHSERVE = "auto"
+    BB_SIGNATURE_HANDLER = "OEEquivHash"
+    SSTATE_DIR = "../temp/sstate-cache"
+    EXTRA_IMAGE_FEATURES ?= "debug-tweaks"
+    # IMAGE_FSTYPES += "wic wic.bmap"
+
+  rpi-specific: |
+    ENABLE_I2C = "1"
+    RPI_EXTRA_CONFIG = "dtoverlay=disable-bt"
