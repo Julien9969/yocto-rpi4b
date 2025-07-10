@@ -1,3 +1,13 @@
 build/
 temp/
 .kas_shell_history
+
+sources/
+*.o
+*.cmd
+*.mod
+*.mod.c
+*.ko
+
+*.symvers
+*.order
