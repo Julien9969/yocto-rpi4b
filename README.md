@@ -24,8 +24,43 @@ bitbake core-image-minimal
 disable apparmor restriction on unprivileged user namespaces for this session only
 echo 0 | sudo tee /proc/sys/kernel/apparmor_restrict_unprivileged_userns
 
+
+### Flash SD
+
+lsblk
+
+cd /home/trizotto/Desktop/yocto-rpi4b/raspberrypi-machine/sources/tmp/deploy/images/raspberrypi4-64
+sudo bmaptool copy core-image-minimal-raspberrypi4-64.wic.bz2 /dev/sd<>
+
+
+### Meta-fan
+
+Create layer
+bitbake-layers create-layer ../XXXX
+
+test layer (build)
+bitbake myfan-driver
+
+get variables value : bitbake -e myfan-driver | grep ^PN=
+
+### Kernel module
+sudo insmod ./hello-1.ko
+sudo rmmod hello-1
+
+sudo dmesg | grep "Hello"
+
 ### Resources  
 https://docs.yoctoproject.org/brief-yoctoprojectqs/index.html
 
 https://kas.readthedocs.io/en/latest/userguide/project-configuration.html
 https://kas.readthedocs.io/en/latest/format-changelog.html#version-19
+
+https://git.yoctoproject.org/meta-raspberrypi/about/
+
+Kernel module
+https://tldp.org/LDP/lkmpg/2.6/html/lkmpg.html
+
+
+Create layer
+https://docs.yoctoproject.org/dev-manual/layers.html
+https://docs.yoctoproject.org/kernel-dev/intro.html
