@@ -30,7 +30,7 @@ echo 0 | sudo tee /proc/sys/kernel/apparmor_restrict_unprivileged_userns
 lsblk
 
 cd /home/trizotto/Desktop/yocto-rpi4b/raspberrypi-machine/sources/tmp/deploy/images/raspberrypi4-64
-sudo bmaptool copy core-image-minimal-raspberrypi4-64.wic.bz2 /dev/sd<>
+sudo bmaptool copy core-image-base-raspberrypi4-64.wic.bz2 /dev/sd<>
 
 
 ### Meta-fan
