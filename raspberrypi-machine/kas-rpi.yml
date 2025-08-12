@@ -50,6 +50,10 @@ local_conf_header:
     DL_DIR ?= "${SOURCES}/downloads"
     TMPDIR = "${SOURCES}/tmp"
     
+  init-system: |
+    DISTRO_FEATURES:append = " systemd"
+    VIRTUAL-RUNTIME_init_manager = "systemd"
+    VIRTUAL-RUNTIME_initscripts = "systemd-compat-units"
 
   rpi-specific: |
     # IMAGE_FSTYPES += "wic wic.bmap"
