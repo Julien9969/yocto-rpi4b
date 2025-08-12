@@ -61,13 +61,14 @@ local_conf_header:
     RPI_EXTRA_CONFIG = "dtoverlay=disable-bt"
 
   image-conf: |
-    EXTRA_IMAGE_FEATURES ?= "debug-tweaks"
-    
-    # bitbake-layers show-recipes git
-    IMAGE_INSTALL:append = " git" 
-    IMAGE_INSTALL:append = " python3"
+    IMAGE_FEATURES += " ssh-server-openssh"
+    EXTRA_IMAGE_FEATURES ?= "debug-tweaks allow-root-login"
 
-  
+    # bitbake-layers show-recipes git
+    IMAGE_INSTALL:append = " git python3 openssh openssh-sshd"
+    SYSTEMD_AUTO_ENABLE = "enable"
+    SYSTEMD_SERVICE:ssh = "sshd.service"
+
   kernel-support: |
     IMAGE_INSTALL:append = " kernel-dev kernel-devsrc"
 
