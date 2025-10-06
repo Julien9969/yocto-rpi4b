@@ -20,10 +20,45 @@ kas build kas-project.yml
 kas shell kas.yml
 bitbake core-image-minimal
 
+### list bbb task
+ bitbake -c listtasks <recipe>
+
+### List recipes + install
+bitake layer search in ./build/conf/bblayers
+bitbake-layers show-recipes | grep -A 1 "python.*:" # (-A 1 to print the line after)
+or 
+find -iname "*.bb" | grep 
+IMAGE_INSTALL:append = " <recipe>"
+
 
 disable apparmor restriction on unprivileged user namespaces for this session only
 echo 0 | sudo tee /proc/sys/kernel/apparmor_restrict_unprivileged_userns
 
+
+### DEVTOOL
+create recipe
+devtool add <recipe name> <fetch uri>
+
+devtool build <recipe>
+
+#### Deploy to target
+devtool deploy-target <recipe name> <ssh@host>
+
+#### undeploy
+devtool undeploy-target <recipe name> <ssh@host>
+
+### add to meta layer
+devtool finish <recipe> <dest> [-f (force) ]
+
+
+### Devtool to patch
+devtool modify <recipe>
+
+### Devtool upgrade
+devtool upgrade <recipe> -S <commit id> -V <version number
+
+change the name
+devtool rename <recipe> -V <version number>
 
 ### Flash SD
 

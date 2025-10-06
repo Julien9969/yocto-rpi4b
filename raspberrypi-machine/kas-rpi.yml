@@ -38,6 +38,11 @@ repos:
     layers:
       .:
 
+  meta-test:
+    path: meta-test
+    layers:
+      .:
+
 local_conf_header:
   build-data-and-cache: |
     BB_HASHSERVE_UPSTREAM = "wss://hashserv.yoctoproject.org/ws"
@@ -75,6 +80,9 @@ local_conf_header:
   fan: |
     KERNEL_MODULE_AUTOLOAD += "myfan_driver"
     IMAGE_INSTALL:append = " myfan-driver"
+  
+  test: |
+    IMAGE_INSTALL:append = " test-program"
   
   other: |
     RM_OLD_IMAGE = "1"
